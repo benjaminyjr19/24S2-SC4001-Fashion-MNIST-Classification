@@ -6,11 +6,12 @@ University.
 
 ## Overview
 
-The project trains four convolutional architectures on the same data split and
-compares them on accuracy, parameter count, and interpretability. The
-comparison isolates one variable at a time: a baseline, the same depth with
-dilated convolutions, a smaller depthwise separable design, and the baseline
-again trained with MixUp augmentation.
+The project trains four CNN configurations on the same data split and compares
+them on accuracy, parameter count, and interpretability. Three are distinct
+architectures and the fourth is an augmentation variant. The comparison
+isolates one variable at a time: a baseline, the same depth with dilated
+convolutions, a smaller depthwise separable design, and the baseline again
+trained with MixUp augmentation.
 
 ## Results
 
@@ -27,6 +28,11 @@ MixUp augmentation produced the best model. Widening the receptive field with
 dilated convolutions and shrinking the network with a depthwise separable
 design both cost a small amount of accuracy, with the efficient model giving up
 0.73 points for roughly half the parameters.
+
+How to read these figures: each model trains for 10 epochs and is evaluated on
+the test set after every epoch, and the table reports the best epoch. The
+notebook holds out no separate validation split, so the test set also selects
+the checkpoint and the accuracies are slightly optimistic for that reason.
 
 ## Repository Structure
 
@@ -50,6 +56,19 @@ Note that the torchvision fallback applies a different normalization. The local
 and GitHub paths scale pixels to the range 0 to 1, which is what produced the
 results above, while the torchvision path normalizes to the range -1 to 1.
 Prefer the tracked files when reproducing the numbers.
+
+### Data Source and License
+
+The four `.gz` archives are unmodified copies of the Fashion-MNIST files
+published by Zalando Research at
+[zalandoresearch/fashion-mnist](https://github.com/zalandoresearch/fashion-mnist).
+Their MD5 checksums match the published ones. The dataset is distributed under
+the MIT License, Copyright © 2017 Zalando SE. The full notice is reproduced in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+Citation: Han Xiao, Kashif Rasul and Roland Vollgraf. Fashion-MNIST: a Novel
+Image Dataset for Benchmarking Machine Learning Algorithms.
+[arXiv:1708.07747](https://arxiv.org/abs/1708.07747).
 
 ## What the Notebook Covers
 
@@ -102,4 +121,6 @@ differently.
 
 ## License
 
-MIT License. See [LICENSE](LICENSE).
+The notebook, the saved model and this documentation are under the MIT License.
+See [LICENSE](LICENSE). The Fashion-MNIST archives remain under Zalando SE's own
+MIT license. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
